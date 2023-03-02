@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_01_092605) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_02_032346) do
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -18,4 +18,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_092605) do
     t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.integer "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_users_on_role_id"
+    t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  add_foreign_key "users", "roles"
 end

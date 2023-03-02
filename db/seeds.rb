@@ -7,3 +7,5 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 roles = Role.create([{ name: "Admin" }, { name: "Student" }])
+
+User.create([{ username: "admin", password: "123456", role: roles.first }])
