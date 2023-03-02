@@ -1,0 +1,27 @@
+<%= form_with(model: model) do |form| %>
+  <div>
+    <%= form.label :username %>
+    <%= form.text_field :username %>
+    <ul>
+      <% user.errors.full_messages_for(:username).each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+    <ul>
+      <% user.errors.full_messages_for(:password).each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <%= collection_select(:user, :role_id, Role.all, :id, :name) %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
