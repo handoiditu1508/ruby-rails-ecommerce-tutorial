@@ -1,0 +1,8 @@
+<h1>Edit Course</h1>
+
+<%= render "/courses/form", model: [:admin, @course] %>
+
+<%= link_to "Delete", [:admin, @course], data: {
+  turbo_method: :delete,
+  turbo_confirm: 'Are you sure?'
+} %>

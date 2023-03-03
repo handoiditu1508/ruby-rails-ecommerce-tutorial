@@ -1,0 +1,26 @@
+<% course = model.kind_of?(Array) ? model.last : model %>
+<%= form_with model: model do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <ul>
+      <% course.errors.full_messages_for(:name).each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+    <ul>
+      <% course.errors.full_messages_for(:description).each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

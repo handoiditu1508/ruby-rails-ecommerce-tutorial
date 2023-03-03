@@ -1,0 +1,11 @@
+<h1>Manage Courses</h1>
+
+<ul>
+  <% @courses.each do |course| %>
+    <li>
+      <%= link_to(course.name, edit_admin_course_path(course)) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New", new_admin_course_path %>
