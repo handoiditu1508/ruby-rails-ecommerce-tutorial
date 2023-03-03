@@ -10,6 +10,11 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
+    if @user.role.name == "Student"
+      @student = Student.new
+      @user.student = @student
+    end
+
     if @user.save
       redirect_to edit_admin_user_path(@user)
     else
