@@ -9,15 +9,21 @@
     </ul>
   </div>
 
-  <div>
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-    <ul>
-      <% user.errors.full_messages_for(:password).each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
+  <% if !defined?(hide_password_field) %>
+    <% hide_password_field = false %>
+  <% end %>
+
+  <% if !hide_password_field %>
+    <div>
+      <%= form.label :password %>
+      <%= form.password_field :password %>
+      <ul>
+        <% user.errors.full_messages_for(:password).each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <%= collection_select(:user, :role_id, Role.all, :id, :name) %>
 
