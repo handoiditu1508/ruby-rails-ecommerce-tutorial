@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :users, except: [:show]
     resources :courses, except: [:show]
   end
+  resources :courses, only: [:index, :show]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
