@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :courses, except: [:show]
   end
   resources :courses, only: [:index, :show]
+  post "courses/:id/register", to: "courses#register"
+  delete "courses/:id/unregister", to: "courses#unregister"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
