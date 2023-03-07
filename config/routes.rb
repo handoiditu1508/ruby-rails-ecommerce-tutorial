@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "courses#index"
   namespace :admin do
     resources :users, except: [:show]
     resources :courses, except: [:show]
