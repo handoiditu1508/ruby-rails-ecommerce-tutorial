@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   post "courses/:id/register", to: "courses#register"
   delete "courses/:id/unregister", to: "courses#unregister"
 
+  devise_for :users
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

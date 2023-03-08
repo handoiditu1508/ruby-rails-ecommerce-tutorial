@@ -8,9 +8,9 @@
 
 roles = Role.create([{ name: "Admin" }, { name: "Student" }])
 
-admin = User.create({ username: "admin", password: "123456", role: roles.first })
+admin = User.create(email: "admin@test.com", password: "123456", password_confirmation: "123456", role: roles.first)
 
-studentUser = User.create({ username: "student1", password: "123456", role: roles.detect { |r| r.name == "Student" } })
+studentUser = User.create(email: "student1@test.com", password: "123456", password_confirmation: "123456", role: roles.detect { |r| r.name == "Student" })
 
 student = Student.create({ user: studentUser })
 
