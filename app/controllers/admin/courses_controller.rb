@@ -1,13 +1,23 @@
-class Admin::CoursesController < ApplicationController
+class Admin::CoursesController < Admin::BaseController
   def index
+    unless user_is_admin?
+      redirect_to root_path
+    end
     @courses = Course.all
   end
 
   def new
+    unless user_is_admin?
+      redirect_to root_path
+    end
     @course = Course.new
   end
 
   def create
+    unless user_is_admin?
+      redirect_to root_path
+    end
+
     @course = Course.new(@course_params)
 
     if @course.save
@@ -18,10 +28,17 @@ class Admin::CoursesController < ApplicationController
   end
 
   def edit
+    unless user_is_admin?
+      redirect_to root_path
+    end
     @course = Course.find(params[:id])
   end
 
   def update
+    unless user_is_admin?
+      redirect_to root_path
+    end
+
     @course = Course.find(params[:id])
 
     if @course.update(course_params)
@@ -32,6 +49,9 @@ class Admin::CoursesController < ApplicationController
   end
 
   def destroy
+    unless user_is_admin?
+      redirect_to root_path
+    end
     @course = Course.find(params[:id])
     @course.destroy
 

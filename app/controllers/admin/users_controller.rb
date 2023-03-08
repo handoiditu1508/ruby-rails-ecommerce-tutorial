@@ -1,13 +1,23 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < Admin::BaseController
   def index
+    unless user_is_admin?
+      redirect_to root_path
+    end
     @users = User.all
   end
 
   def new
+    unless user_is_admin?
+      redirect_to root_path
+    end
     @user = User.new
   end
 
   def create
+    unless user_is_admin?
+      redirect_to root_path
+    end
+
     @user = User.new(user_params)
 
     if @user.role.name == "Student"
@@ -27,6 +37,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
+    unless user_is_admin?
+      redirect_to root_path
+    end
+
     @user = User.find(params[:id])
 
     if @user.update(user_params)
@@ -37,6 +51,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
+    unless user_is_admin?
+      redirect_to root_path
+    end
+
     @user = User.find(params[:id])
     @user.destroy
 

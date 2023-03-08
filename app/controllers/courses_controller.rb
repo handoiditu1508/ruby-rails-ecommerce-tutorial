@@ -4,20 +4,16 @@ class CoursesController < ApplicationController
   end
 
   def show
-    userId = 2 # todo: get user id from jwt
-    @user = User.find_by(id: userId)
-    unless @user.nil?
-      @student = @user.student
-    end
     @course = Course.find(params[:id])
   end
 
   def register
+    if !user_signed_in?
+      render :show, status: :unprocessable_entity
+    end
     @course = Course.find(params[:id])
-    userId = 2 # todo: get user id from jwt
-    @user = User.find(userId)
-    if @user.role.name == "Student"
-      registration = Registration.new(course: @course, student: @user.student)
+    if current_user.role.name == "Student"
+      registration = Registration.new(course: @course, student: current_user.student)
       if registration.save
         redirect_to course_path(@course)
       else
@@ -29,12 +25,13 @@ class CoursesController < ApplicationController
   end
 
   def unregister
+    if !user_signed_in?
+      render :show, status: :unprocessable_entity
+    end
     courseId = params[:id]
     @course = Course.find(courseId)
-    userId = 2 # todo: get user id from jwt
-    @user = User.find_by(id: userId)
-    if !@user.nil? && @user.role.name == "Student"
-      @student = @user.student
+    if !current_user.nil? && current_user.role.name == "Student"
+      @student = current_user.student
       registration = Registration.find_by(course_id: courseId, student_id: @student.id)
       unless registration.nil?
         registration.destroy

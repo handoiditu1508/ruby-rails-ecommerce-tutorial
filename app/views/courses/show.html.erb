@@ -10,14 +10,11 @@
 
 <br>
 
-<% if !@student.nil? %>
-  <% if !@student.courses.include?(@course) %>
-    <button>
-      <%= link_to "Register this course", "%d/register" % [@course.id], data: {turbo_method: :post,} %>
-    </button>
+<% if user_signed_in? && current_user.role.name == "Student" && !current_user.student.nil? %>
+  <% student = current_user.student %>
+  <% if !student.courses.include?(@course) %>
+    <%= button_to "Register this course", "%d/register" % [@course.id], method: :post %>
   <% else %>
-    <button>
-      <%= link_to "Unregister this course", "%d/unregister" % [@course.id], data: {turbo_method: :delete,} %>
-    </button>
+    <%= button_to "Unregister this course", "%d/unregister" % [@course.id], method: :delete %>
   <% end %>
 <% end %>
