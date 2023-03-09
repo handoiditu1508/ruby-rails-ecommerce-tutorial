@@ -64,6 +64,6 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:role_id)
+    params.require(:user).permit(:role_id, :email, :password, :password_confirmation)
   end
 end

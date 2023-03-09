@@ -1,19 +1,49 @@
+<% if !defined?(show_audit_fields) %>
+  <% show_audit_fields = false %>
+<% end %>
+
+<% if !defined?(edit_email) %>
+  <% edit_email = false %>
+<% end %>
+
+<% if !defined?(show_password_field) %>
+  <% show_password_field = false %>
+<% end %>
+
 <% user = model.kind_of?(Array) ? model.last : model %>
 <%= form_with(model: model) do |form| %>
   <div>
     <%= form.label :email %>
-    <%= form.text_field :email, readonly: true, disabled: true %>
+    <% if !edit_email %>
+      <%= form.text_field :email, readonly: true, disabled: true %>
+    <% else %>
+      <%= form.email_field :email %>
+    <% end %>
   </div>
 
-  <div>
-    <%= form.label :created_at %>
-    <%= form.text_field :created_at, readonly: true, disabled: true %>
-  </div>
+  <% if show_password_field %>
+    <div>
+      <%= form.label :password %>
+      <%= form.password_field :password %>
+    </div>
 
-  <div>
-    <%= form.label :updated_at %>
-    <%= form.text_field :updated_at, readonly: true, disabled: true %>
-  </div>
+    <div>
+      <%= form.label :password_confirmation %>
+      <%= form.password_field :password_confirmation %>
+    </div>
+  <% end %>
+
+  <% if show_audit_fields %>
+    <div>
+      <%= form.label :created_at %>
+      <%= form.text_field :created_at, readonly: true, disabled: true %>
+    </div>
+
+    <div>
+      <%= form.label :updated_at %>
+      <%= form.text_field :updated_at, readonly: true, disabled: true %>
+    </div>
+  <% end %>
 
   <%= collection_select(:user, :role_id, Role.all, :id, :name) %>
 
